@@ -46,11 +46,11 @@ class Path:
 
         check = input("So your party is %s %s? Y or N", theParty.goodEvil, theParty.lawChaos)
 
-        while (check.upper() != "Y" or check.upper() != "N")
-        if (check.upper() == "Y"):
-            start = False
-        elif (check.upper() != "N"):
-            check = input("Please enter a valid character, Y for 'Yes' or N for 'No' ")
+        while (check.upper() != "Y" or check.upper() != "N"):
+            if (check.upper() == "Y"):
+                start = False
+            elif (check.upper() != "N"):
+                check = input("Please enter a valid character, Y for 'Yes' or N for 'No' ")
 
 
     print("You did it! Lets get going now. Adventure. Awaits!")
