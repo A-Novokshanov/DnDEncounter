@@ -6,6 +6,8 @@
 # https://www.dnd5eapi.co/api/
 #
 
+import random
+
 class encounterDecision:
 
     def __init__(self, crList, alignmentList, beastiary):
@@ -26,5 +28,24 @@ class encounterDecision:
 
                 if (self.beastiary[monster]["alignment"].lower() == alignment.lower()):
                     self.potentialMonsters[alignment].append(monster)
-
         return self.potentialMonsters
+
+    def getEncounter(self):
+        encounterNum = 1
+        potentialList = self.getPotentialMonsters()
+
+        for encounter in self.encounterCR:
+            self.monsterList[encounter + " " + str(encounterNum)] = None
+            goalCR = self.encounterCR[encounter]
+
+            while ((goalCR != 0) and (len(potentialList[encounter]) > 0)):
+                checkMonster = potentialList[encounter][random.randint(0, len(self.potentialMonsters[encounter]) - 1)]
+
+                if (self.beastiary[checkMonster]["challenge_rating"] <= goalCR):
+                    goalCR -= self.beastiary[checkMonster]["challenge_rating"]
+                    self.monsterList[encounter + " " + str(encounterNum)] = checkMonster
+
+                potentialList[encounter].remove(checkMonster)
+            encounterNum += 1
+
+        return self.monsterList

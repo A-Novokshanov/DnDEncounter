@@ -27,9 +27,23 @@ class main:
 
     crDec = crDecision.crDecision(theHeroes, alDec).createCRDict()
 
-    encounter = encounterDecision.encounterDecision(crDec, alDec, beastiary).getPotentialMonsters()
+    encounter = encounterDecision.encounterDecision(crDec, alDec, beastiary).getEncounter()
 
-    print(encounter)
+    print(str(theHeroes.currentCR) + " : " + str(encounter))
+
+    theHeroes.currentCR = theHeroes.currentCR + 1
+
+
+    while (theHeroes.currentCR < 50):
+        alDec = AlignmentDecision.AlignmentDecision(theHeroes).selectAlignment()
+
+        crDec = crDecision.crDecision(theHeroes, alDec).createCRDict()
+
+        encounter = encounterDecision.encounterDecision(crDec, alDec, beastiary).getEncounter()
+
+        print(str(theHeroes.currentCR) + " : " + str(encounter))
+
+        theHeroes.currentCR = theHeroes.currentCR + 1
 
     #print(alDec)
     #print(crDec)
