@@ -1,4 +1,4 @@
-# This is a sample Python script.
+#
 # Ever wanted to make a DnD Encounter with no continuity or care for
 # the world you are in?
 #
@@ -18,7 +18,7 @@ class AlignmentDecision:
         self.currentCR = theParty.currentCR
         self.alignment = theParty.alignment
 
-        self.listOfCreatureAlignments = []
+        self.listOfCreatureAlignments = {}
 
     def selectAlignment(self):
         code = requests.get("https://www.dnd5eapi.co/api/alignments")
@@ -28,27 +28,27 @@ class AlignmentDecision:
         else:
             results = code.json()["results"]
 
-            for alignment in results:
-                rand = random.randint(0, 10)
+            while (len(self.listOfCreatureAlignments) == 0):
+                for alignment in results:
+                    rand = random.randint(0, 20)
 
-                split = alignment["name"].split()
+                    split = alignment["name"].split()
 
-                if (split[0] == "Neutral"):
-                    split.append("Neutral")
+                    if (alignment["name"] == "Neutral"):
+                        split.append("Neutral")
 
-                print(alignment["name"] + " " + str(rand))
+                    if ((str(split[0]) + " " + str([1])).lower() == self.alignment.lower()):
+                        if (rand > 5):
+                            self.listOfCreatureAlignments[alignment["name"]] = []
+                    elif (split[0].lower() == self.alignment1.lower()):
+                        if (rand > 12):
+                            self.listOfCreatureAlignments[alignment["name"]] = []
+                    elif (split[1].lower() == self.alignment2.lower()):
+                        if (rand > 12):
+                            self.listOfCreatureAlignments[alignment["name"]] = []
+                    else:
+                        if (rand > 16):
+                            self.listOfCreatureAlignments[alignment["name"]] = []
 
-                if (alignment["name"] == self.alignment.lower()):
-                    if (rand > 4):
-                        self.listOfCreatureAlignments.append(alignment["name"])
-                elif (split[0] == self.alignment1.lower()):
-                    if (rand > 7):
-                        self.listOfCreatureAlignments.append(alignment["name"])
-                elif (split[1] == self.alignment2.lower()):
-                    if (rand > 7):
-                        self.listOfCreatureAlignments.append(alignment["name"])
-                else:
-                    if (rand > 8):
-                        self.listOfCreatureAlignments.append(alignment["name"])
 
         return self.listOfCreatureAlignments

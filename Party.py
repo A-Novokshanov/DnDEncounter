@@ -1,4 +1,4 @@
-# This is a sample Python script.
+#
 # Ever wanted to make a DnD Encounter with no continuity or care for
 # the world you are in?
 #
@@ -13,4 +13,3 @@ class Party:
         self.lawChaos = lawChaos
         self.currentCR = 1
         self.alignment = lawChaos + goodEvil
-

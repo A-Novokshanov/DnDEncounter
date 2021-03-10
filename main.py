@@ -1,4 +1,4 @@
-# This is a sample Python script.
+#
 # Ever wanted to make a DnD Encounter with no continuity or care for
 # the world you are in?
 #
@@ -8,6 +8,7 @@
 
 import GameStart
 import AlignmentDecision
+import crDecision
 import Party
 import requests
 import random
@@ -15,9 +16,16 @@ import random
 class main:
 
     start = GameStart.GameStart()
+
     theHeroes = start.setup()
 
-    alDec = AlignmentDecision.AlignmentDecision(theHeroes)
-    print(alDec.selectAlignment())
+    alDec = AlignmentDecision.AlignmentDecision(theHeroes).selectAlignment()
+
+    crDec = crDecision.crDecision(theHeroes, alDec).createCRDict()
+
+    print(crDec)
+
+    #print(alDec)
+    #print(crDec)
 
     #print()

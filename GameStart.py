@@ -1,4 +1,4 @@
-# This is a sample Python script.
+#
 # Ever wanted to make a DnD Encounter with no continuity or care for
 # the world you are in?
 #
@@ -66,6 +66,8 @@ class GameStart:
                 start = False
             elif (check.upper() != "N"):
                 check = input("Please enter a valid character, Y for 'Yes' or N for 'No' ")
+                if (check.upper() == "Y"):
+                    start = False
 
             while (check.upper() != "Y" and check.upper() != "N"):
                 if (check.upper() == "Y"):
