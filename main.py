@@ -17,16 +17,22 @@ import random
 
 class main:
 
+    # creates the bestiary to make encounter building faster
     beastiary = Beastiary.Beastiary().getBeastiary()
 
+    # has the user create their party (pretty much just alignment)
     start = GameStart.GameStart()
 
+    # creates a party with relevant alignment
     theHeroes = start.setup()
 
+    # used to create a random selection of alignments weighted towards party's alignment
     alDec = AlignmentDecision.AlignmentDecision(theHeroes).selectAlignment()
 
+    # determines the 'total CR' that a particular encounter will have
     crDec = crDecision.crDecision(theHeroes, alDec).createCRDict()
 
+    # chooses the creates for each encounter
     encounter = encounterDecision.encounterDecision(crDec, alDec, beastiary).getEncounter()
 
     print(str(theHeroes.currentCR) + " : " + str(encounter))

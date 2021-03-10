@@ -42,8 +42,16 @@ class encounterDecision:
                 checkMonster = potentialList[encounter][random.randint(0, len(self.potentialMonsters[encounter]) - 1)]
 
                 if (self.beastiary[checkMonster]["challenge_rating"] <= goalCR):
+
                     goalCR -= self.beastiary[checkMonster]["challenge_rating"]
-                    self.monsterList[encounter + " " + str(encounterNum)] = checkMonster
+                    if (self.monsterList[encounter + " " + str(encounterNum)] == None):
+                        self.monsterList[encounter + " " + str(encounterNum)] = checkMonster
+                    else:
+                        self.monsterList[encounter + " " + str(encounterNum)] = self.monsterList[encounter + " "
+                                                                                             + str(encounterNum)]\
+                                                                                                + ", " + checkMonster
+
+
 
                 potentialList[encounter].remove(checkMonster)
             encounterNum += 1
