@@ -9,11 +9,15 @@
 import GameStart
 import AlignmentDecision
 import crDecision
+import encounterDecision
+import Beastiary
 import Party
 import requests
 import random
 
 class main:
+
+    beastiary = Beastiary.Beastiary().getBeastiary()
 
     start = GameStart.GameStart()
 
@@ -23,7 +27,9 @@ class main:
 
     crDec = crDecision.crDecision(theHeroes, alDec).createCRDict()
 
-    print(crDec)
+    encounter = encounterDecision.encounterDecision(crDec, alDec, beastiary).getPotentialMonsters()
+
+    print(encounter)
 
     #print(alDec)
     #print(crDec)

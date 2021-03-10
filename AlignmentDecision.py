@@ -25,30 +25,31 @@ class AlignmentDecision:
 
         if (code.status_code == 404):
             print("Error")
+            return
         else:
             results = code.json()["results"]
 
-            while (len(self.listOfCreatureAlignments) == 0):
-                for alignment in results:
-                    rand = random.randint(0, 20)
+        while (len(self.listOfCreatureAlignments) == 0):
+            for alignment in results:
+                rand = random.randint(0, 20)
 
-                    split = alignment["name"].split()
+                split = alignment["name"].split()
 
-                    if (alignment["name"] == "Neutral"):
-                        split.append("Neutral")
+                if (alignment["name"] == "Neutral"):
+                    split.append("Neutral")
 
-                    if ((str(split[0]) + " " + str([1])).lower() == self.alignment.lower()):
-                        if (rand > 5):
-                            self.listOfCreatureAlignments[alignment["name"]] = []
-                    elif (split[0].lower() == self.alignment1.lower()):
-                        if (rand > 12):
-                            self.listOfCreatureAlignments[alignment["name"]] = []
-                    elif (split[1].lower() == self.alignment2.lower()):
-                        if (rand > 12):
-                            self.listOfCreatureAlignments[alignment["name"]] = []
-                    else:
-                        if (rand > 16):
-                            self.listOfCreatureAlignments[alignment["name"]] = []
+                if ((str(split[0]) + " " + str([1])).lower() == self.alignment.lower()):
+                    if (rand > 5):
+                        self.listOfCreatureAlignments[alignment["name"]] = []
+                elif (split[0].lower() == self.alignment1.lower()):
+                    if (rand > 12):
+                        self.listOfCreatureAlignments[alignment["name"]] = []
+                elif (split[1].lower() == self.alignment2.lower()):
+                    if (rand > 12):
+                        self.listOfCreatureAlignments[alignment["name"]] = []
+                else:
+                    if (rand > 16):
+                        self.listOfCreatureAlignments[alignment["name"]] = []
 
 
         return self.listOfCreatureAlignments
