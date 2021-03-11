@@ -30,7 +30,7 @@ class Beastiary:
 
         for monster in results:
 
-            if ((current / total) > 0.15):
+            if ((current / total) > 1.15):
 
                 return self.monsterDict
 
