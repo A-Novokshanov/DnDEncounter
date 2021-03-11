@@ -23,10 +23,13 @@ class encounterDecision:
 
             for alignment in self.alignmentList:
 
-                if (alignment == "Neutral"):
-                    alignment = (alignment + " Neutral")
+                trueAlignment = alignment
 
-                if (self.beastiary[monster]["alignment"].lower() == alignment.lower()):
+                if (alignment == "Neutral"):
+                    trueAlignment = "unaligned"
+
+                if (self.beastiary[monster]["alignment"].lower() == trueAlignment.lower()
+                        or (self.beastiary[monster]["alignment"].lower() == alignment.lower())):
                     self.potentialMonsters[alignment].append(monster)
         return self.potentialMonsters
 
