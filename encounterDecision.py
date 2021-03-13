@@ -37,7 +37,6 @@ class encounterDecision:
         encounterNum = 1
         potentialList = self.getPotentialMonsters()
 
-
         for encounter in self.encounterCR:
             self.monsterList[encounter + " " + str(encounterNum)] = None
             goalCR = self.encounterCR[encounter]
@@ -51,11 +50,11 @@ class encounterDecision:
 
                     goalCR -= self.beastiary[checkMonster]["challenge_rating"]
                     if (self.monsterList[encounter + " " + str(encounterNum)] == None):
-                        self.monsterList[encounter + " " + str(encounterNum)] = checkMonster
+                        self.monsterList[encounter + " " + str(encounterNum)] = self.beastiary[checkMonster]["name"]
                     else:
                         self.monsterList[encounter + " " + str(encounterNum)] = self.monsterList[encounter + " "
-                                                                                             + str(encounterNum)]\
-                                                                                                + ", " + checkMonster
+                                                                                + str(encounterNum)] + ", " + \
+                                                                                self.beastiary[checkMonster]["name"]
 
                 #for mob in self.monsterList[encounter + " " + str(encounterNum)].split(", "):
                 #    currentECR += self.beastiary[mob]

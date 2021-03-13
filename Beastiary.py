@@ -17,6 +17,8 @@ class Beastiary:
 
     def __init__(self):
         self.monsterDict = {}
+        self.monsterDB = {}
+        self.stats = []
 
     def decideUpdate(self):
         toReturn = "x"
@@ -32,7 +34,29 @@ class Beastiary:
     def getBeastiary(self):
         restore = self.decideUpdate()
         if (restore):
-            return self.rebuildBeastiary()
+            self.rebuildBeastiary()
+
+        conn = BeastiaryDatabase.BeastiaryDatabase.create_connection(self, "BeastiaryDatapath.sqlite")
+
+        cursor = conn.cursor()
+
+        cursor.execute('SELECT * FROM beastiary')
+
+        rows = cursor.fetchall()
+
+        for monster in rows:
+            self.monsterDB[monster[0]] = {}
+            for element in range(1, len(monster)):
+                if (element == 1):
+                    self.monsterDB[monster[0]]["name"] = monster[element]
+                elif (element == 2):
+                    self.monsterDB[monster[0]]["alignment"] = monster[element]
+                elif (element == 3):
+                    self.monsterDB[monster[0]]["challenge_rating"] = monster[element]
+
+        conn.close()
+
+        return self.monsterDB
 
 
     def rebuildBeastiary(self):
@@ -47,13 +71,13 @@ class Beastiary:
             current = 1
             results = code.json()["results"]
 
-        conn = BeastiaryDatabase.BeastiaryDatabase.create_connection(self, "BeastiaryDatapath.db")
+        conn = BeastiaryDatabase.BeastiaryDatabase.create_connection(self, "BeastiaryDatapath.sqlite")
 
         BeastiaryDatabase.BeastiaryDatabase.createBeastiaryDatabase(self, conn)
 
         for monster in results:
 
-            if ((current / total) > 0.15):
+            if ((current / total) > 1.10):
                 conn.close()
 
                 return self.monsterDict
@@ -67,13 +91,21 @@ class Beastiary:
 
             self.monsterDict[specificMonster["name"]] = specificMonster
 
-            BeastiaryDatabase.BeastiaryDatabase.addToDatabase(self, conn, self.monsterDict[specificMonster["name"]]["name"],
+            for stat in specificMonster:
+                if stat not in self.stats:
+                    self.stats.append(stat)
+
+            BeastiaryDatabase.BeastiaryDatabase.addToDatabase(self, conn, self.monsterDict[specificMonster["name"]]["index"],
+                                                              self.monsterDict[specificMonster["name"]]["name"],
                                                               self.monsterDict[specificMonster["name"]]["alignment"],
                                                               self.monsterDict[specificMonster["name"]]["challenge_rating"])
+
 
 
 
             print(str(round((current / total) * 100, 2)) + "% done")
             current += 1
 
-        return self.monsterDict
+        conn.close()
+
+        #return self.monsterDB

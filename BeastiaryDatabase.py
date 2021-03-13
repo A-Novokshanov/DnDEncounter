@@ -27,6 +27,7 @@ class BeastiaryDatabase:
         cursor = conn.cursor()
         cursor.execute("DROP TABLE IF EXISTS BEASTIARY")
         sql = '''CREATE TABLE beastiary(
+           ID CHAR(20),
            NAME CHAR(20),
            ALIGNMENT CHAR(20),
            CHALLENGE_RATING INT
@@ -35,7 +36,8 @@ class BeastiaryDatabase:
         print("Table has been rebuilt")
         conn.commit()
 
-    def addToDatabase(self, conn ,name, alignment, challengeRating):
+    def addToDatabase(self, conn, id, name, alignment, challengeRating):
+        conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
-        cursor.execute("""INSERT INTO beastiary VALUES (?, ?, ?)""", (name, alignment, challengeRating))
+        cursor.execute("""INSERT INTO beastiary VALUES (?, ?, ?, ?)""", (id, name, alignment, challengeRating))
         conn.commit()

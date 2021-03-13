@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="BeastiaryDatapath" uuid="6aaa8cc4-52d6-4f7c-a0d6-8958410f7f24">
+    <data-source source="LOCAL" name="BeastiaryDatapath" uuid="fe15bab8-5322-4b8b-89cb-b0d6f3576942">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\Andrew Test\Github\DnDEncounter\BeastiaryDatapath.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\Andrew Test\Github\DnDEncounter\BeastiaryDatapath.sqlite</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
+      <libraries>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.34.0/sqlite-jdbc-3.34.0.jar</url>
+        </library>
+      </libraries>
     </data-source>
   </component>
 </project>
