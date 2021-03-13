@@ -37,9 +37,12 @@ class encounterDecision:
         encounterNum = 1
         potentialList = self.getPotentialMonsters()
 
+
         for encounter in self.encounterCR:
             self.monsterList[encounter + " " + str(encounterNum)] = None
             goalCR = self.encounterCR[encounter]
+
+            #currentECR = 0
 
             while ((goalCR != 0) and (len(potentialList[encounter]) > 0)):
                 checkMonster = potentialList[encounter][random.randint(0, len(self.potentialMonsters[encounter]) - 1)]
@@ -54,7 +57,12 @@ class encounterDecision:
                                                                                              + str(encounterNum)]\
                                                                                                 + ", " + checkMonster
 
+                #for mob in self.monsterList[encounter + " " + str(encounterNum)].split(", "):
+                #    currentECR += self.beastiary[mob]
 
+
+                #for (mob in self.monsterList):
+                #currentECR +=
 
                 potentialList[encounter].remove(checkMonster)
             encounterNum += 1

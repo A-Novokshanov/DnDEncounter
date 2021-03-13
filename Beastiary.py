@@ -7,6 +7,8 @@
 #
 
 import requests
+import BeastiaryDatabase
+
 import Party
 import AlignmentDecision
 import random
@@ -16,21 +18,43 @@ class Beastiary:
     def __init__(self):
         self.monsterDict = {}
 
+    def decideUpdate(self):
+        toReturn = "x"
+        while((toReturn.lower() != "y") and (toReturn.lower() != "n")):
+            toReturn = input("Recreate database? Y (for Yes) or N (for No) ")
+            if ((toReturn.lower() != "y") and (toReturn.lower() != "n")):
+                print("Invalid input")
+            elif ((toReturn.lower() == "y")):
+                return True
+            elif ((toReturn.lower() == "n")):
+                return False
 
     def getBeastiary(self):
+        restore = self.decideUpdate()
+        if (restore):
+            return self.rebuildBeastiary()
+
+
+    def rebuildBeastiary(self):
 
         code = requests.get("https://www.dnd5eapi.co/api/monsters")
 
         if (code.status_code == 404):
             print("Error")
+
         else:
             total = code.json()["count"]
             current = 1
             results = code.json()["results"]
 
+        conn = BeastiaryDatabase.BeastiaryDatabase.create_connection(self, "BeastiaryDatapath.db")
+
+        BeastiaryDatabase.BeastiaryDatabase.createBeastiaryDatabase(self, conn)
+
         for monster in results:
 
-            if ((current / total) > 1.15):
+            if ((current / total) > 0.15):
+                conn.close()
 
                 return self.monsterDict
 
@@ -42,6 +66,10 @@ class Beastiary:
                 specificMonster = code2.json()
 
             self.monsterDict[specificMonster["name"]] = specificMonster
+
+            BeastiaryDatabase.BeastiaryDatabase.addToDatabase(self, conn, self.monsterDict[specificMonster["name"]]["name"],
+                                                              self.monsterDict[specificMonster["name"]]["alignment"],
+                                                              self.monsterDict[specificMonster["name"]]["challenge_rating"])
 
 
 
