@@ -6,9 +6,6 @@
 # https://www.dnd5eapi.co/api/
 #
 
-import requests
-import Party
-import AlignmentDecision
 import random
 
 class crDecision:

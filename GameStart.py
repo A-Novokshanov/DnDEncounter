@@ -6,8 +6,6 @@
 # https://www.dnd5eapi.co/
 #
 
-import requests
-
 import Party
 
 class GameStart:

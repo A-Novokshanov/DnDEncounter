@@ -6,7 +6,6 @@
 # https://www.dnd5eapi.co/
 #
 
-import Party
 import requests
 import random
 

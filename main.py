@@ -11,9 +11,6 @@ import AlignmentDecision
 import crDecision
 import encounterDecision
 import Beastiary
-import Party
-import requests
-import random
 
 class main:
 
